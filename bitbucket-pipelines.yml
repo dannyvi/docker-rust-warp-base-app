@@ -1,0 +1,35 @@
+# This is a sample build configuration for Python.
+# Check our guides at https://confluence.atlassian.com/x/x4UWN for more examples.
+# Only use spaces to indent your .yml configuration.
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+
+pipelines:
+  default:
+    - step:
+        name: Build
+        script:
+          - export BUILD_ID=$BITBUCKET_BRANCH_$BITBUCKET_COMMIT_$BITBUCKET_BUILD_NUMBER
+          - export VERSION=$(git rev-parse --short HEAD)
+          - docker build -t registry-vpc.cn-beijing.aliyuncs.com/dannyvi/warp-demo:$VERSION .
+          - docker login --username $DOCKER_ALI_USERNAME --password $DOCKER_ALI_PASSWORD registry.cn-beijing.aliyuncs.com
+          # Push image to private registry
+          - docker push registry-vpc.cn-beijing.aliyuncs.com/dannyvi/warp-demo:$VERSION
+          - echo $VERSION > ./version.txt
+        services:
+          - docker
+        caches:
+          - docker
+        artifacts:
+          - version.txt
+    - step:
+        name: Deploy
+        deployment: production
+        script:
+          - VERSION=$(cat ./version.txt)
+          - sed -i "s|{{image}}|registry-vpc.cn-beijing.aliyuncs.com/dannyvi/warp-demo:$VERSION|g" deployment.yml
+          - pipe: atlassian/kubectl-run:1.1.2
+            variables:
+              KUBE_CONFIG: $KUBE_CONFIG
+              KUBECTL_COMMAND: 'apply'
+              RESOURCE_PATH: 'deployment.yml'

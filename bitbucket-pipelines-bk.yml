@@ -1,0 +1,55 @@
+image: atlassian/default-image:2
+
+
+definitions:
+  services:
+    postgres:
+      image: postgres
+      variables:
+        POSTGRES_DB: 'pipelines'
+        POSTGRES_USER: 'wonderuser'
+        POSTGRES_PASSWORD: '1234'
+    redis:
+      image: redis
+    push-dev-image: &push-dev-image
+      name: Build and Push Docker Image
+      image: atlassian/pipelines-awscli
+      caches:
+        - docker
+      services:
+        - docker
+      script:
+        - export BUILD_ID=$BITBUCKET_BRANCH_$BITBUCKET_COMMIT_$BITBUCKET_BUILD_NUMBER
+        - export DOCKER_URI=$DOCKER_IMAGE_URL:latest
+        # Login to docker registry on AWS
+        - eval $(aws ecr get-login --no-include-email)
+        # Build image
+        - echo $DOCKER_URI
+        - export VERSION=$(git rev-parse --short HEAD)
+        - docker build -t registry.cn-beijing.aliyuncs.com/dannyvi/run-nginx:$VERSION .
+        # Push image to private registry
+        - docker login --username $DOCKER_ALI_USERNAME --password $DOCKER_ALI_PASSWORD registry.cn-beijing.aliyuncs.com
+        - docker push registry.cn-beijing.aliyuncs.com/dannyvi/run-nginx:$VERSION
+        - echo $VERSION > ./version.txt
+      artifacts:
+        - version.txt
+    deploy-to-cluster: &deploy-to-dev-ecs
+      name: Deploy to ECS
+      image: atlassian/pipelines-awscli
+      script:
+        - VERSION=$(cat ./version.txt)
+        - sed -i "s/<COMMIT-ID>/$VERSION/" ./task-definition-dev.json
+        - pipe: atlassian/aws-ecs-deploy:1.6.0
+          variables:
+            AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+            AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+            AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+            CLUSTER_NAME: 'wonder-test'
+            SERVICE_NAME: 'wonder-test-container-service'
+            TASK_DEFINITION: "task-definition-dev.json"
+            FORCE_NEW_DEPLOYMENT: "true"
+pipelines:
+  branches:
+    master:
+      - step: *push-dev-image
+      - step: *deploy-to-cluster
