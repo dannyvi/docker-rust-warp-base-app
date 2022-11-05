@@ -31,13 +31,6 @@ env:
   IMAGE: warp-demo
   TAG: ${{ github.sha }}
   ACK_CLUSTER_ID: c822e365aff4045f083ce0b40e9d858ac
-  ACK_DEPLOYMENT_NAME: nginx-deployment
-
-  ACR_EE_REGISTRY: registry.cn-beijing.aliyuncs.com/dannyvi/warp-demo 
-  ACR_EE_INSTANCE_ID: instanceID
-  ACR_EE_NAMESPACE: dannyvi
-  ACR_EE_IMAGE: warp-demo
-  ACR_EE_TAG: ${{ github.sha }}
 
 permissions:
   contents: read
@@ -74,4 +67,6 @@ jobs:
     # 4 Deploy 
     - name: Deploy
       run: |
+
+        sed -i "s|{{image}}|registry.cn-beijing.aliyuncs.com/dannyvi/warp-demo:$TAG|g" deployment.yml
         kubectl apply -f ask-deployment.yml
