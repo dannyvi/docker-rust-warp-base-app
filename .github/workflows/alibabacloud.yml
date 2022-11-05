@@ -29,7 +29,7 @@ env:
   REGISTRY: registry.cn-beijing.aliyuncs.com
   NAMESPACE: dannyvi
   IMAGE: warp-demo
-  TAG: ${{ github.sha }}
+  TAG: $(echo $GITHUB_SHA | head -c7)
   ACK_CLUSTER_ID: c822e365aff4045f083ce0b40e9d858ac
 
 permissions:
