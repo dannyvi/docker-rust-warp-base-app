@@ -29,7 +29,7 @@ env:
   REGISTRY: registry.cn-beijing.aliyuncs.com
   NAMESPACE: dannyvi
   IMAGE: warp-demo
-  TAG: $(echo $GITHUB_SHA | head -c7)
+  TAG: ${{ github.sha }}
   ACK_CLUSTER_ID: c822e365aff4045f083ce0b40e9d858ac
 
 permissions:
@@ -41,6 +41,11 @@ jobs:
     environment: production
     
     steps:
+
+    - name: Set outputs
+        id: vars
+        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
     - name: Checkout
       uses: actions/checkout@v3
     
