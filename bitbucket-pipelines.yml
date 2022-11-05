@@ -27,7 +27,7 @@ pipelines:
         deployment: production
         script:
           - VERSION=$(cat ./version.txt)
-          - sed -i "s|{{image}}|registry-vpc.cn-beijing.aliyuncs.com/dannyvi/warp-demo:$VERSION|g" deployment.yml
+          - sed -i "s|{{image}}|registry-vpc.cn-beijing.aliyuncs.com/dannyvi/warp-demo:$VERSION|g" ask-deployment.yml
           - pipe: atlassian/kubectl-run:1.1.2
             variables:
               KUBE_CONFIG: $KUBE_CONFIG
