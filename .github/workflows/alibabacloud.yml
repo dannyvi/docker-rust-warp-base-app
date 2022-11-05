@@ -66,14 +66,34 @@ jobs:
         docker build --tag "$REGISTRY/$NAMESPACE/$IMAGE:$TAG" .  
         docker push "$REGISTRY/$NAMESPACE/$IMAGE:$TAG"   
  
-    # 3 Set ACK context         
-    - name: Set K8s context
-      uses: tale/kubectl-action@v1
-      with:
-        base64-kube-config: ${{ secrets.KUBE_CONFIG }}
+    # # 3 Set ACK context         
+    # - name: Set K8s context
+    #   uses: tale/kubectl-action@v1
+    #   with:
+    #     base64-kube-config: ${{ secrets.KUBE_CONFIG }}
     
-    # 4 Deploy 
+    # 3.1 Set ACK context         
+    - name: Set K8s context
+      uses: aliyun/ack-set-context@v1
+      with:
+        access-key-id: "${{ secrets.ACCESS_KEY_ID }}"
+        access-key-secret: "${{ secrets.ACCESS_KEY_SECRET }}"
+        cluster-id: "${{ env.ACK_CLUSTER_ID }}"
+
+    # 3.2 Deploy the image to the ACK cluster
+    - name: Set up Kustomize
+      run: |-
+        curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash /dev/stdin 3.8.6
+    
     - name: Deploy
-      run: |
-        sed -i "s|{{image}}|registry-vpc.cn-beijing.aliyuncs.com/dannyvi/warp-demo:$TAG|g" ask-deployment.yml
-        kubectl apply -f ask-deployment.yml
+      run: |-
+        ./kustomize edit set image REGISTRY/NAMESPACE/IMAGE:TAG=$REGISTRY/$NAMESPACE/$IMAGE:$TAG
+        ./kustomize build . | kubectl apply -f -
+        kubectl rollout status deployment/$ACK_DEPLOYMENT_NAME
+        kubectl get services -o wide
+
+    # # 4 Deploy 
+    # - name: Deploy
+    #   run: |
+    #     sed -i "s|{{image}}|registry-vpc.cn-beijing.aliyuncs.com/dannyvi/warp-demo:$TAG|g" ask-deployment.yml
+    #     kubectl apply -f ask-deployment.yml
