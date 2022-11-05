@@ -2,24 +2,18 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    deployment.kubernetes.io/revision: '1'
+    deployment.kubernetes.io/revision: '2'
     kubectl.kubernetes.io/last-applied-configuration: >
-      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"deployment.kubernetes.io/revision":"1"},"creationTimestamp":"2022-11-04T01:41:34Z","generation":1,"labels":{"app":"demo","bitbucket.org/bitbucket_build_number":"4","bitbucket.org/bitbucket_commit":"92eced28a62134c0d634e25b2975238aa8a56f76","bitbucket.org/bitbucket_deployment_environment":"production","bitbucket.org/bitbucket_repo_owner":"dannyvis","bitbucket.org/bitbucket_repo_slug":"docker-rust-warp-base-app","bitbucket.org/bitbucket_step_triggerer_uuid":"4e54ac62-361e-4754-bcd2-b671fca9b8b0"},"managedFields":[{"apiVersion":"apps/v1","fieldsType":"FieldsV1","fieldsV1":{"f:metadata":{"f:labels":{".":{},"f:app":{}}},"f:spec":{"f:progressDeadlineSeconds":{},"f:replicas":{},"f:revisionHistoryLimit":{},"f:selector":{},"f:strategy":{"f:rollingUpdate":{".":{},"f:maxSurge":{},"f:maxUnavailable":{}},"f:type":{}},"f:template":{"f:metadata":{"f:labels":{".":{},"f:app":{}}},"f:spec":{"f:containers":{"k:{\"name\":\"demo\"}":{".":{},"f:image":{},"f:imagePullPolicy":{},"f:lifecycle":{".":{},"f:postStart":{".":{},"f:exec":{".":{},"f:command":{}}},"f:preStop":{".":{},"f:exec":{".":{},"f:command":{}}}},"f:name":{},"f:ports":{".":{},"k:{\"containerPort\":8000,\"protocol\":\"TCP\"}":{".":{},"f:containerPort":{},"f:name":{},"f:protocol":{}}},"f:resources":{".":{},"f:requests":{".":{},"f:cpu":{},"f:memory":{}}},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{}}},"f:dnsPolicy":{},"f:restartPolicy":{},"f:schedulerName":{},"f:securityContext":{},"f:terminationGracePeriodSeconds":{}}}}},"manager":"ACK-Console
-      Apache-HttpClient","operation":"Update","time":"2022-11-04T01:41:34Z"},{"apiVersion":"apps/v1","fieldsType":"FieldsV1","fieldsV1":{"f:metadata":{"f:annotations":{".":{},"f:deployment.kubernetes.io/revision":{}}},"f:status":{"f:availableReplicas":{},"f:conditions":{".":{},"k:{\"type\":\"Available\"}":{".":{},"f:lastTransitionTime":{},"f:lastUpdateTime":{},"f:message":{},"f:reason":{},"f:status":{},"f:type":{}},"k:{\"type\":\"Progressing\"}":{".":{},"f:lastTransitionTime":{},"f:lastUpdateTime":{},"f:message":{},"f:reason":{},"f:status":{},"f:type":{}}},"f:observedGeneration":{},"f:readyReplicas":{},"f:replicas":{},"f:updatedReplicas":{}}},"manager":"kube-controller-manager","operation":"Update","subresource":"status","time":"2022-11-04T01:41:51Z"}],"name":"demo","namespace":"default","resourceVersion":"3255","uid":"f26c61e6-9e28-4e37-8c13-3fb8c9daf523"},"spec":{"progressDeadlineSeconds":600,"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"app":"demo"}},"strategy":{"rollingUpdate":{"maxSurge":"25%","maxUnavailable":"25%"},"type":"RollingUpdate"},"template":{"metadata":{"labels":{"app":"demo"}},"spec":{"containers":[{"image":"registry-vpc.cn-beijing.aliyuncs.com/dannyvi/warp-demo:0.0.2","imagePullPolicy":"IfNotPresent","lifecycle":{"postStart":{"exec":{"command":["echo","hello"]}},"preStop":{"exec":{"command":["echo","bye"]}}},"name":"demo","ports":[{"containerPort":8000,"name":"api","protocol":"TCP"}],"resources":{"requests":{"cpu":"250m","memory":"512Mi"}},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File"}],"dnsPolicy":"ClusterFirst","restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"terminationGracePeriodSeconds":30}}},"status":{"availableReplicas":1,"conditions":[{"lastTransitionTime":"2022-11-04T01:41:51Z","lastUpdateTime":"2022-11-04T01:41:51Z","message":"Deployment
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"deployment.kubernetes.io/revision":"1"},"creationTimestamp":"2022-11-04T01:41:34Z","generation":2,"labels":{"app":"demo"},"managedFields":[{"apiVersion":"apps/v1","fieldsType":"FieldsV1","fieldsV1":{"f:metadata":{"f:labels":{".":{},"f:app":{}}},"f:spec":{"f:progressDeadlineSeconds":{},"f:replicas":{},"f:revisionHistoryLimit":{},"f:selector":{},"f:strategy":{"f:rollingUpdate":{".":{},"f:maxSurge":{},"f:maxUnavailable":{}},"f:type":{}},"f:template":{"f:metadata":{"f:labels":{".":{},"f:app":{}}},"f:spec":{"f:containers":{"k:{\"name\":\"demo\"}":{".":{},"f:image":{},"f:imagePullPolicy":{},"f:lifecycle":{".":{},"f:postStart":{".":{},"f:exec":{".":{},"f:command":{}}},"f:preStop":{".":{},"f:exec":{".":{},"f:command":{}}}},"f:name":{},"f:ports":{".":{},"k:{\"containerPort\":8000,\"protocol\":\"TCP\"}":{".":{},"f:containerPort":{},"f:name":{},"f:protocol":{}}},"f:resources":{".":{},"f:requests":{".":{},"f:cpu":{},"f:memory":{}}},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{}}},"f:dnsPolicy":{},"f:restartPolicy":{},"f:schedulerName":{},"f:securityContext":{},"f:terminationGracePeriodSeconds":{}}}}},"manager":"ACK-Console
+      Apache-HttpClient","operation":"Update","time":"2022-11-04T01:41:34Z"},{"apiVersion":"apps/v1","fieldsType":"FieldsV1","fieldsV1":{"f:metadata":{"f:annotations":{".":{},"f:deployment.kubernetes.io/revision":{}}},"f:status":{"f:availableReplicas":{},"f:conditions":{".":{},"k:{\"type\":\"Available\"}":{".":{},"f:lastTransitionTime":{},"f:lastUpdateTime":{},"f:message":{},"f:reason":{},"f:status":{},"f:type":{}},"k:{\"type\":\"Progressing\"}":{".":{},"f:lastTransitionTime":{},"f:lastUpdateTime":{},"f:message":{},"f:reason":{},"f:status":{},"f:type":{}}},"f:observedGeneration":{},"f:readyReplicas":{},"f:replicas":{},"f:updatedReplicas":{}}},"manager":"kube-controller-manager","operation":"Update","subresource":"status","time":"2022-11-04T01:41:51Z"},{"apiVersion":"apps/v1","fieldsType":"FieldsV1","fieldsV1":{"f:metadata":{"f:annotations":{"f:kubectl.kubernetes.io/last-applied-configuration":{}},"f:labels":{}}},"manager":"kubectl","operation":"Update","time":"2022-11-04T02:32:36Z"}],"name":"demo","namespace":"default","resourceVersion":"17467","uid":"f26c61e6-9e28-4e37-8c13-3fb8c9daf523"},"spec":{"progressDeadlineSeconds":600,"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"app":"demo"}},"strategy":{"rollingUpdate":{"maxSurge":"25%","maxUnavailable":"25%"},"type":"RollingUpdate"},"template":{"metadata":{"labels":{"app":"demo"}},"spec":{"containers":[{"image":"registry-vpc.cn-beijing.aliyuncs.com/dannyvi/warp-demo:0.0.2","imagePullPolicy":"IfNotPresent","lifecycle":{"postStart":{"exec":{"command":["echo","hello"]}},"preStop":{"exec":{"command":["echo","bye"]}}},"name":"demo","ports":[{"containerPort":8000,"name":"api","protocol":"TCP"}],"resources":{"requests":{"cpu":"250m","memory":"512Mi"}},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File"}],"dnsPolicy":"ClusterFirst","restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"terminationGracePeriodSeconds":30}}},"status":{"availableReplicas":1,"conditions":[{"lastTransitionTime":"2022-11-04T01:41:51Z","lastUpdateTime":"2022-11-04T01:41:51Z","message":"Deployment
       has minimum
-      availability.","reason":"MinimumReplicasAvailable","status":"True","type":"Available"},{"lastTransitionTime":"2022-11-04T01:41:34Z","lastUpdateTime":"2022-11-04T01:41:51Z","message":"ReplicaSet
+      availability.","reason":"MinimumReplicasAvailabe","status":"True","type":"Available"},{"lastTransitionTime":"2022-11-04T01:41:34Z","lastUpdateTime":"2022-11-04T01:41:51Z","message":"ReplicaSet
       \"demo-659dc74446\" has successfully
-      progressed.","reason":"NewReplicaSetAvailable","status":"True","type":"Progressing"}],"observedGeneration":1,"readyReplicas":1,"replicas":1,"updatedReplicas":1}}
+      progressed.","reason":"NewReplicaSetAvailable","status":"True","type":"Progressing"}],"observedGeneration":2,"readyReplicas":1,"replicas":1,"updatedReplicas":1}}
   creationTimestamp: '2022-11-04T01:41:34Z'
-  generation: 2
+  generation: 4
   labels:
     app: demo
-    bitbucket.org/bitbucket_build_number: '4'
-    bitbucket.org/bitbucket_commit: 92eced28a62134c0d634e25b2975238aa8a56f76
-    bitbucket.org/bitbucket_deployment_environment: production
-    bitbucket.org/bitbucket_repo_owner: dannyvis
-    bitbucket.org/bitbucket_repo_slug: docker-rust-warp-base-app
-    bitbucket.org/bitbucket_step_triggerer_uuid: 4e54ac62-361e-4754-bcd2-b671fca9b8b0
   managedFields:
     - apiVersion: apps/v1
       fieldsType: FieldsV1
@@ -91,6 +85,15 @@ metadata:
       fieldsV1:
         'f:metadata':
           'f:annotations':
+            'f:kubectl.kubernetes.io/last-applied-configuration': {}
+      manager: kubectl
+      operation: Update
+      time: '2022-11-04T02:32:36Z'
+    - apiVersion: apps/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
             .: {}
             'f:deployment.kubernetes.io/revision': {}
         'f:status':
@@ -120,26 +123,10 @@ metadata:
       manager: kube-controller-manager
       operation: Update
       subresource: status
-      time: '2022-11-04T01:41:51Z'
-    - apiVersion: apps/v1
-      fieldsType: FieldsV1
-      fieldsV1:
-        'f:metadata':
-          'f:annotations':
-            'f:kubectl.kubernetes.io/last-applied-configuration': {}
-          'f:labels':
-            'f:bitbucket.org/bitbucket_build_number': {}
-            'f:bitbucket.org/bitbucket_commit': {}
-            'f:bitbucket.org/bitbucket_deployment_environment': {}
-            'f:bitbucket.org/bitbucket_repo_owner': {}
-            'f:bitbucket.org/bitbucket_repo_slug': {}
-            'f:bitbucket.org/bitbucket_step_triggerer_uuid': {}
-      manager: kubectl
-      operation: Update
-      time: '2022-11-04T02:32:36Z'
+      time: '2022-11-05T04:50:40Z'
   name: demo
   namespace: default
-  resourceVersion: '17467'
+  resourceVersion: '423207'
   uid: f26c61e6-9e28-4e37-8c13-3fb8c9daf523
 spec:
   progressDeadlineSeconds: 600
@@ -159,7 +146,8 @@ spec:
         app: demo
     spec:
       containers:
-        - image: 'registry-vpc.cn-beijing.aliyuncs.com/dannyvi/warp-demo:0.0.2'
+        - image: >-
+            registry-vpc.cn-beijing.aliyuncs.com/dannyvi/warp-demo:732a34211a675df78121ca525fddd309776f66ed
           imagePullPolicy: IfNotPresent
           lifecycle:
             postStart:
@@ -194,16 +182,16 @@ status:
     - lastTransitionTime: '2022-11-04T01:41:51Z'
       lastUpdateTime: '2022-11-04T01:41:51Z'
       message: Deployment has minimum availability.
-      reason: MinimumReplicasAvailabe
+      reason: MinimumReplicasAvailable
       status: 'True'
       type: Available
     - lastTransitionTime: '2022-11-04T01:41:34Z'
-      lastUpdateTime: '2022-11-04T01:41:51Z'
-      message: ReplicaSet "demo-659dc74446" has successfully progressed.
+      lastUpdateTime: '2022-11-05T04:50:40Z'
+      message: ReplicaSet "demo-6b479899d7" has successfully progressed.
       reason: NewReplicaSetAvailable
       status: 'True'
       type: Progressing
-  observedGeneration: 2
+  observedGeneration: 4
   readyReplicas: 1
   replicas: 1
   updatedReplicas: 1
