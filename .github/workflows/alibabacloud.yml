@@ -67,19 +67,7 @@ jobs:
  
     # 3.1 Set ACK context         
     - name: Set K8s context
-      uses: aliyun/ack-set-context@v1
+      uses: tale/kubectl-action@v1
       with:
-        access-key-id: "${{ secrets.ACCESS_KEY_ID }}"
-        access-key-secret: "${{ secrets.ACCESS_KEY_SECRET }}"
-        cluster-id: "${{ env.ACK_CLUSTER_ID }}"
-
-    # 3.2 Deploy the image to the ACK cluster
-    - name: Set up Kustomize
-      run: |-
-        curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash /dev/stdin 3.8.6
-    - name: Deploy
-      run: |-
-        ./kustomize edit set image REGISTRY/NAMESPACE/IMAGE:TAG=$REGISTRY/$NAMESPACE/$IMAGE:$TAG
-        ./kustomize build . | kubectl apply -f deployment.yml
-        kubectl rollout status deployment/$ACK_DEPLOYMENT_NAME
-        kubectl get services -o wide
+        base64-kube-config: ${{ secrets.KUBE_CONFIG }}
+      run: kubectl apply ask-deployment.yml
