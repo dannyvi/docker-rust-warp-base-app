@@ -51,7 +51,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
     
-    # 1.1 Login to ACR   
+    # 1 Login to ACR   
     - name: Login to ACR with the AccessKey pair
       uses: aliyun/acr-login@v1
       with:
@@ -59,16 +59,19 @@ jobs:
         access-key-id: "${{ secrets.ACCESS_KEY_ID }}"
         access-key-secret: "${{ secrets.ACCESS_KEY_SECRET }}"
 
-    # 1.2 Buid and push image to ACR   
+    # 2 Buid and push image to ACR   
     - name: Build and push image to ACR  
       run: |
         docker build --tag "$REGISTRY/$NAMESPACE/$IMAGE:$TAG" .  
         docker push "$REGISTRY/$NAMESPACE/$IMAGE:$TAG"   
  
-    # 3.1 Set ACK context         
+    # 3 Set ACK context         
     - name: Set K8s context
       uses: tale/kubectl-action@v1
       with:
         base64-kube-config: ${{ secrets.KUBE_CONFIG }}
+    
+    # 4 Deploy 
+    - name: Deploy
       run: |
         kubectl apply ask-deployment.yml
