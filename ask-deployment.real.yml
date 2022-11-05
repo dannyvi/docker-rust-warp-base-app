@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
         - image: >-
-            {{image}}
+            registry-vpc.cn-beijing.aliyuncs.com/dannyvi/warp-demo:5fe2869beb26ea7acec47287f6297105cc1756df
           imagePullPolicy: IfNotPresent
           name: demo
           ports:
