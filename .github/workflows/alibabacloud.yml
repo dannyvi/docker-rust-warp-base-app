@@ -68,5 +68,5 @@ jobs:
     - name: Deploy
       run: |
 
-        sed -i "s|{{image}}|registry.cn-beijing.aliyuncs.com/dannyvi/warp-demo:$TAG|g" deployment.yml
+        sed -i "s|{{image}}|registry.cn-beijing.aliyuncs.com/dannyvi/warp-demo:$TAG|g" ask-deployment.yml
         kubectl apply -f ask-deployment.yml

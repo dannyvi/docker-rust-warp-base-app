@@ -3,3 +3,5 @@ target
 Dockerfile
 README.md
 .history
+.github/*
+*.yml
