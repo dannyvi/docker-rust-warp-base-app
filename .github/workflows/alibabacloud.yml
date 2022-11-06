@@ -17,7 +17,7 @@
 # 4. Change the values for the REGION_ID, REGISTRY, NAMESPACE, IMAGE, ACK_CLUSTER_ID, and ACK_DEPLOYMENT_NAME. 
 #
 
-name: Build and Deploy to ACK
+name: Build and Deploy to ASK
 
 on:
   push:
@@ -29,7 +29,6 @@ env:
   REGISTRY: registry.cn-beijing.aliyuncs.com
   NAMESPACE: dannyvi
   IMAGE: warp-demo
-  TAG: ${{ github.sha }}
   ACK_CLUSTER_ID: c822e365aff4045f083ce0b40e9d858ac
 
 permissions:
@@ -41,9 +40,8 @@ jobs:
     environment: production
     
     steps:
-
-    - name: Set outputs
-      run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+    - name: Add TAG env property with commit short sha
+      run: echo "TAG=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
 
     - name: Checkout
       uses: actions/checkout@v3
