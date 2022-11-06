@@ -75,5 +75,6 @@ jobs:
     # 4 Deploy 
     - name: Deploy
       run: |
-        sed -i "s|{{image}}|registry-vpc.cn-beijing.aliyuncs.com/dannyvi/warp-demo:$TAG|g" ask-deployment.yml
-        kubectl apply -f ask-deployment.yml
+        sed -i "s|{{image}}|registry-vpc.cn-beijing.aliyuncs.com/dannyvi/warp-demo:$TAG|g" .k8/ask-deployment.yml
+        kubectl apply -f .k8/ask-deployment.yml
+  

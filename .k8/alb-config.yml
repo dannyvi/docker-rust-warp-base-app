@@ -8,4 +8,4 @@ spec:
     addressType: Internet
     zoneMappings:
     - vSwitchId: vsw-2zek5wb2bthbms4yx4jin
-    - vSwitchId: vsw-2zeuw6iasv0k6xxxle0gq
+    - vSwitchId: vsw-2zegcvn8qhsrm3b3nna5l

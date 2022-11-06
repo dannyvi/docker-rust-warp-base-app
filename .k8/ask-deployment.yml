@@ -3,8 +3,6 @@ kind: Deployment
 metadata:
   labels:
     app: demo
-  annotations:
-    kubernetes.io/change-cause: ${CHANGE_CAUSE}
   name: demo
   namespace: default
 spec:
@@ -26,7 +24,7 @@ spec:
     spec:
       containers:
         - image: >-
-            registry-vpc.cn-beijing.aliyuncs.com/dannyvi/warp-demo:5fe2869beb26ea7acec47287f6297105cc1756df
+            {{image}}
           imagePullPolicy: IfNotPresent
           name: demo
           ports:
