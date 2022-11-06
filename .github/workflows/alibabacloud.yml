@@ -47,7 +47,7 @@ jobs:
         docker build --tag "$REGISTRY/$NAMESPACE/$IMAGE:$TAG" .
         docker push "$REGISTRY/$NAMESPACE/$IMAGE:$TAG"
 
-  deploy:
+  deployment:
     needs: build
     runs-on: ubuntu-latest
     environment: production 
