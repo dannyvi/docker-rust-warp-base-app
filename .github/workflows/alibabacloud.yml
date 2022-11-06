@@ -3,7 +3,8 @@ name: Build and Deploy Api End Point to Dev Environment
 
 on:
   push:
-    branches: [ "master" ]
+    tags:
+    - '*-dev-api'
 
 # Environment variables available to all jobs and steps in this workflow.
 env:
@@ -46,10 +47,6 @@ jobs:
       run: |
         docker build --tag "$REGISTRY/$NAMESPACE/$IMAGE:$TAG" .
         docker push "$REGISTRY/$NAMESPACE/$IMAGE:$TAG"
-
-  basic-ubuntu:
-    runs-on: ubuntu-latest
-    environment: production 
     
     # 3 Set ACK context         
     - name: Set K8s context
