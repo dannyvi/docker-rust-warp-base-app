@@ -14,9 +14,26 @@ env:
   ACK_CLUSTER_ID: c822e365aff4045f083ce0b40e9d858ac
 
 permissions:
-  contents: read
+  contents: read-all
 
 jobs:
+  deployment:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: production 
+    
+    # 3 Set ACK context         
+    - name: Set K8s context
+      uses: tale/kubectl-action@v1
+      with:
+        base64-kube-config: ${{ secrets.KUBE_CONFIG }}
+
+    # 4 Deploy 
+    - name: Deploy
+      run: |
+        sed -i "s|{{image}}|registry-vpc.cn-beijing.aliyuncs.com/dannyvi/warp-demo:$TAG|g" .k8/ask-deployment.yml
+        kubectl apply -f .k8/ask-deployment.yml
+  
   build:
     runs-on: ubuntu-latest
     environment: production
@@ -45,21 +62,3 @@ jobs:
       run: |
         docker build --tag "$REGISTRY/$NAMESPACE/$IMAGE:$TAG" .
         docker push "$REGISTRY/$NAMESPACE/$IMAGE:$TAG"
-
-  deployment:
-    needs: build
-    runs-on: ubuntu-latest
-    environment: production 
-    
-    # 3 Set ACK context         
-    - name: Set K8s context
-      uses: tale/kubectl-action@v1
-      with:
-        base64-kube-config: ${{ secrets.KUBE_CONFIG }}
-
-    # 4 Deploy 
-    - name: Deploy
-      run: |
-        sed -i "s|{{image}}|registry-vpc.cn-beijing.aliyuncs.com/dannyvi/warp-demo:$TAG|g" .k8/ask-deployment.yml
-        kubectl apply -f .k8/ask-deployment.yml
-  
