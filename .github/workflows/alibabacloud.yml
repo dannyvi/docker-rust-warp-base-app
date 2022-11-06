@@ -3,8 +3,7 @@ name: Build and Deploy Api End Point to Dev Environment
 
 on:
   push:
-    tags:
-    - '*-dev-api'
+    branches: [ "master" ]
 
 # Environment variables available to all jobs and steps in this workflow.
 env:
