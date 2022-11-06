@@ -44,9 +44,8 @@ jobs:
     # 2 Buid and push image to ACR   
     - name: Build and push image to ACR  
       run: |
-        docker build --tag "$REGISTRY/$NAMESPACE/$IMAGE:$TAG" .  
-        docker push "$REGISTRY/$NAMESPACE/$IMAGE:$TAG"   
-  
+        docker build --tag "$REGISTRY/$NAMESPACE/$IMAGE:$TAG" .
+        docker push "$REGISTRY/$NAMESPACE/$IMAGE:$TAG"
   deploy:
     runs-on: ubuntu-latest
     environment: production 
